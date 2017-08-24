@@ -1,4 +1,5 @@
 import time
+from io import BytesIO
 
 from IPython import display
 import gspread  # noqa: I201
@@ -9,6 +10,7 @@ import ipywidgets as widgets  # noqa: I201
 from bqplot import (
     Axis, Bars,  Figure, LinearScale, OrdinalScale,
 )
+import segno
 
 
 def draw_graph(sheet_name='', question=''):
@@ -74,3 +76,10 @@ def draw_graph(sheet_name='', question=''):
     fig = first_time()
     h = widgets.VBox([widgets.HBox([b, cb]), fig])
     display.display(h)
+
+
+def create_qr(link='', scale=20):
+    s = segno.make(link, micro=False)
+    b = BytesIO()
+    s.save(b, kind='svg', scale=scale)
+    display.display(display.SVG(b.getvalue().decode('UTF-8')))
