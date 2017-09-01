@@ -12,6 +12,7 @@ RUN conda config --add channels bryanwweber \
         gspread \
         oauth2client \
         bqplot \
+        segno \
         && conda clean -tipsy
 
 RUN cd /tmp \
@@ -20,6 +21,5 @@ RUN cd /tmp \
     && jupyter nbextension install expand-cell-fullscreen \
     && jupyter nbextension enable expand-cell-fullscreen/main
 
-RUN pip install segno
 
 USER $NB_USER
